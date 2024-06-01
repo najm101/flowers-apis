@@ -1,0 +1,2545 @@
+{
+	"info": {
+		"_postman_id": "f856980e-725f-4aeb-a38e-00fe05ea2347",
+		"name": "Customer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23530404",
+		"_collection_link": "https://tawique.postman.co/workspace/flowers-api~15ab8761-74c6-484c-ba2b-39a7564d7472/collection/34411133-f856980e-725f-4aeb-a38e-00fe05ea2347?action=share&source=collection_link&creator=23530404"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"USER_ID\", jsonData.user._id);\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", jsonData.accessToken);\r",
+									"// postman.setEnvironmentVariable(\"REFRESH_TOKEN\", jsonData.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\r\n//     \"email\":\"mohamedaboelseoudz@std.mans.edu.eg\",\r\n//     \"password\":\"123456789\"\r\n// }\r\n\r\n{\r\n    \"email\":\"abdelrahmantemsah30@gmail.com\",\r\n    \"password\":\"123456\"\r\n}\r\n\r\n\r\n\r\n//Invalid crdentials test-case\r\n// {\r\n//     \"email\":\"mohamedaboelseoud@std.mans.edu.eg\",\r\n//     \"password\":\"pass1221\"\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"login"
+							]
+						},
+						"description": "this route"
+					},
+					"response": []
+				},
+				{
+					"name": "sign up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"USER_ID\", jsonData.user._id);\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"Mahmoud Nabowy\",\r\n    \"phone\":\"011072553921952\",\r\n    \"email\":\"mohamedaboelseoudz@std.mans.edu.eg\",\r\n    \"password\":\"123456789\",\r\n    \"gender\":\"male\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/customer/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"customer",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", jsonData.accessToken);\r",
+									"postman.setEnvironmentVariable(\"REFRESH_TOKEN\", jsonData.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\": \"799803\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/customer/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"customer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{USER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend Verify Account OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OtpType\":\"Verify_Account\",\r\n    \"userId\":\"{{USER_ID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/otp",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", jsonData.accessToken);\r",
+									"// postman.setEnvironmentVariable(\"REFRESH_TOKEN\", jsonData.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Password",
+			"item": [
+				{
+					"name": "Get User ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"USER_ID\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"mohamedaboelseoud@std.mans.edu.eg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/customer/public/:email",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"customer",
+								"public",
+								":email"
+							],
+							"variable": [
+								{
+									"key": "email",
+									"value": "mohamedaboelseoud@std.mans.edu.eg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Reset Pass OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OtpType\":\"RESET_PASSWORD\",\r\n    \"userId\":\"{{USER_ID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/otp",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Reset Pass OTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"PASSWORD_RESET_TOKEN\", jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"OtpType\":\"RESET_PASSWORD\",\r\n    \"userId\":\"{{USER_ID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/otp/verify/:OTPVALUE",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"otp",
+								"verify",
+								":OTPVALUE"
+							],
+							"variable": [
+								{
+									"key": "OTPVALUE",
+									"value": "144723"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset passoword",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"pass1221\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/customer/public/:resetToken",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"customer",
+								"public",
+								":resetToken"
+							],
+							"variable": [
+								{
+									"key": "resetToken",
+									"value": "{{PASSWORD_RESET_TOKEN}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Get Personal Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload my profile image",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef05aa8-9981-4780-a786-e345ef3164b3"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers/profile-image",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers",
+								"profile-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user (test)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "voucher",
+					"item": [
+						{
+							"name": "apply voucher",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-refresh",
+										"value": "{{REFRESH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/orders/:orderId/vouchers/apply/:code",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"orders",
+										":orderId",
+										"vouchers",
+										"apply",
+										":code"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": ""
+										},
+										{
+											"key": "code",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove voucher",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/orders/:orderId/vouchers/remove/:code",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"orders",
+										":orderId",
+										"vouchers",
+										"remove",
+										":code"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": ""
+										},
+										{
+											"key": "code",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "address",
+					"item": [
+						{
+							"name": "add ordinary address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"country\": \"egypt\",\r\n    \"state\": \"upper egypt\",\r\n    \"city\": \"dammitta\",\r\n    \"street\": \"test street\",\r\n    \"buildingNumber\": 99,\r\n\t\"floorNumber\": 12,\r\n    \"apartmentNumber\": 1,\r\n\t\"homeDescription\": \"my name is mohannmed and abo elsoud is stupied af  my name is mohammed medhat\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/order/:orderId/addresses",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"order",
+										":orderId",
+										"addresses"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove address",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "x-refresh",
+										"value": "{{REFRESH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/order/:orderId/addresses/:addressId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"order",
+										":orderId",
+										"addresses",
+										":addressId"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": ""
+										},
+										{
+											"key": "addressId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add geo address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"longitude\":{{$randomLongitude}},\r\n    \"latitude\":{{$randomLatitude}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/order/:orderId/addresses/geo",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"order",
+										":orderId",
+										"addresses",
+										"geo"
+									],
+									"variable": [
+										{
+											"key": "orderId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers/orders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "taxPrice=lt:10",
+									"description": "filter: used to get all orders which have their prices less than 243",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "totalPrice=gte:0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "-taxPrice",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "totalPrice,taxPrice",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers/orders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "order checkout",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paymentMethod\":\"cash\",\r\n    \"phone\":\"{{$randomPhoneNumber}}\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/orders/:orderId/checkout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"orders",
+								":orderId",
+								"checkout"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add experience",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\":\"message (test)\",\r\n    \"rating\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/orders/:orderId/experience",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"orders",
+								":orderId",
+								"experience"
+							],
+							"variable": [
+								{
+									"key": "orderId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "cart",
+			"item": [
+				{
+					"name": "item",
+					"item": [
+						{
+							"name": "remove item",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/carts/items/:itemId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"carts",
+										"items",
+										":itemId"
+									],
+									"variable": [
+										{
+											"key": "itemId",
+											"value": "663e25c008a6794a939fd8cb"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "increase item by one",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/carts/items/:itemId/increaseByOne",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"carts",
+										"items",
+										":itemId",
+										"increaseByOne"
+									],
+									"variable": [
+										{
+											"key": "itemId",
+											"value": "664de167d51148b988c85b00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "decrease item by one",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/carts/items/:itemId/decreaseByOne",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"carts",
+										"items",
+										":itemId",
+										"decreaseByOne"
+									],
+									"variable": [
+										{
+											"key": "itemId",
+											"value": "664de167d51148b988c85b00"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get my cart",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/carts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clean my cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/carts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}} ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "course reviews",
+					"item": [
+						{
+							"name": "get all course reviews",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/courses/:courseId/reviews",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"courses",
+										":courseId",
+										"reviews"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "rating=lte:2",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": "rating",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get course review",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/courses/:courseId/reviews/:reviewId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"courses",
+										":courseId",
+										"reviews",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": ""
+										},
+										{
+											"key": "reviewId",
+											"value": "663d625330eb05468b31bac0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"review\":\"first review msg (test)\",\r\n    \"rating\":5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/courses/:courseId/reviews",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"courses",
+										":courseId",
+										"reviews"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": "66542b277be7bb2a2256a842"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit review",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rating\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/reviews/:reviewId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"reviews",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "663b56bff4d6beba9f6cb64e"
+										},
+										{
+											"key": "reviewId",
+											"value": "663d68a7918a729fecfa006b"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete review",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/reviews/:reviewId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"reviews",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "663b56bff4d6beba9f6cb64e"
+										},
+										{
+											"key": "reviewId",
+											"value": "663d68a7918a729fecfa006b"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "get my all subscription request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/courses/subscriptions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"courses",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "enrollment request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/courses/:courseId/subscriptions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"courses",
+										":courseId",
+										"subscriptions"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": "66542b277be7bb2a2256a842"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "cancel enrollment request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/courses/:courseId/subsriptions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"courses",
+										":courseId",
+										"subsriptions"
+									],
+									"variable": [
+										{
+											"key": "courseId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/courses/:courseId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"courses",
+								":courseId"
+							],
+							"variable": [
+								{
+									"key": "courseId",
+									"value": "66542b277be7bb2a2256a842"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Florists",
+			"item": [
+				{
+					"name": "Customers Orders",
+					"item": [
+						{
+							"name": "Get Orders",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/customers/flowerisetOrder",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"customers",
+										"flowerisetOrder"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all Florists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers/florists?test=2,",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers",
+								"florists"
+							],
+							"query": [
+								{
+									"key": "test",
+									"value": "2,"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get florist By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/customers/florists/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"customers",
+								"florists",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6648ae814779b25fc3bf209c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "reviews",
+					"item": [
+						{
+							"name": "get all product reviews",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/reviews",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"reviews"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "rating=lte:2",
+											"disabled": true
+										},
+										{
+											"key": "select",
+											"value": "rating",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "10",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "664ca978ea3534b5a623a1c7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get product review",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/customers/products/:productId/reviews/:reviewId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"customers",
+										"products",
+										":productId",
+										"reviews",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "663b56bff4d6beba9f6cb64e"
+										},
+										{
+											"key": "reviewId",
+											"value": "663d625330eb05468b31bac0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create review",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"review\":\"first review msg (test)\",\r\n    \"rating\":5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/reviews",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"reviews"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "664ca978ea3534b5a623a1c7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit review",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"rating\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/reviews/:reviewId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"reviews",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "663b56bff4d6beba9f6cb64e"
+										},
+										{
+											"key": "reviewId",
+											"value": "663d68a7918a729fecfa006b"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete review",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/reviews/:reviewId",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"reviews",
+										":reviewId"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "663b56bff4d6beba9f6cb64e"
+										},
+										{
+											"key": "reviewId",
+											"value": "663d68a7918a729fecfa006b"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "item",
+					"item": [
+						{
+							"name": "add item to cart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/items",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"items"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "664ca978ea3534b5a623a1c7"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "categories",
+					"item": [
+						{
+							"name": "get product category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"categories"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "663e030a77b55b0e5c03e98b"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "favorits",
+					"item": [
+						{
+							"name": "add to favorites",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/favorites",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"favorites"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "664ca978ea3534b5a623a1c7"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove from favorits",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/{{API_PREFIX}}/products/:productId/favorites",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{API_PREFIX}}",
+										"products",
+										":productId",
+										"favorites"
+									],
+									"variable": [
+										{
+											"key": "productId",
+											"value": "665444cdd40b0cc36c4a02ba"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get all products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/products?filter=price=4109,price=411",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"products"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "price",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "price=4109,price=411"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/products/:productId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "6652ff742e6ea2b0be06e5c5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "get categories (top 2 layers only)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/categories?filter=depth=1,depth=0",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "depth=1,depth=0"
+								},
+								{
+									"key": "select",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/categories/:categoryId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"categories",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "favorits",
+			"item": [
+				{
+					"name": "get my favorites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/favorites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clear my favorites",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/favorites",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "address",
+			"item": [
+				{
+					"name": "get addresses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/addresses?sort=-floorNumber&filter=buildingNumber=lte:99&page=1&limit=5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"addresses"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "-floorNumber"
+								},
+								{
+									"key": "filter",
+									"value": "buildingNumber=lte:99"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get address",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/addresses/:addressId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"addresses",
+								":addressId"
+							],
+							"variable": [
+								{
+									"key": "addressId",
+									"value": "663371644ce0a5b8c2de22b1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create ordinary address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const newAccessToken = responseHeaders['x-access-token']\r",
+									"\r",
+									"if(newAccessToken){\r",
+									"    console.log('Set new access token')\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", newAccessToken);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country\": \"egypt\",\r\n    \"state\": \"upper egypt\",\r\n    \"city\": \"dammitta\",\r\n    \"street\": \"test street\",\r\n    \"buildingNumber\": 99,\r\n\t\"floorNumber\": 12,\r\n    \"apartmentNumber\": 1,\r\n\t\"homeDescription\": \"my name is mohannmed and abo elsoud is stupied af  my name is mohammed medhat\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/addresses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create geo address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"longitude\":{{$randomLongitude}},\r\n    \"latitude\":{{$randomLatitude}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/addresses/geo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"addresses",
+								"geo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete address",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-refresh",
+								"value": "{{REFRESH_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/addresses/:addressId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"addresses",
+								":addressId"
+							],
+							"variable": [
+								{
+									"key": "addressId",
+									"value": "663371644ce0a5b8c2de22b1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "testimonials",
+			"item": [
+				{
+					"name": "get testimonials",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/testimonials",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"testimonials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get testimonial",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/testimonials/:testimonialId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"testimonials",
+								":testimonialId"
+							],
+							"variable": [
+								{
+									"key": "testimonialId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create testimonial",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\":\"have fun\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/testimonials",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"testimonials"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update testimonial",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/testimonials/:testimonialId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"testimonials",
+								":testimonialId"
+							],
+							"variable": [
+								{
+									"key": "testimonialId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete size",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/sizes/:sizeId",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"sizes",
+								":sizeId"
+							],
+							"variable": [
+								{
+									"key": "sizeId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "info",
+			"item": [
+				{
+					"name": "get general info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/info/general-info",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"info",
+								"general-info"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

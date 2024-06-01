@@ -1,0 +1,458 @@
+{
+	"info": {
+		"_postman_id": "df0d9e97-de70-4f94-b34a-a751f095a4f0",
+		"name": "Floweriest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23530404",
+		"_collection_link": "https://tawique.postman.co/workspace/flowers-api~15ab8761-74c6-484c-ba2b-39a7564d7472/collection/34411133-df0d9e97-de70-4f94-b34a-a751f095a4f0?action=share&source=collection_link&creator=23530404"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "sign up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"USER_ID\", jsonData.user._id);\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", jsonData.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Mohamed",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0100301599422",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mohamedaboelseoud2@std.mans.edu.eg",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pass1222",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "floristView[nationalId]",
+									"value": "30208011601255",
+									"type": "text"
+								},
+								{
+									"key": "floristView[videoURL]",
+									"value": "whynot",
+									"type": "text"
+								},
+								{
+									"key": "floristView[section]",
+									"value": "wedding",
+									"type": "text"
+								},
+								{
+									"key": "floristView[hourCost]",
+									"value": "20",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "certificates",
+									"type": "file",
+									"src": [
+										"/D:/Test For Kazly/CertificateOfCompletion_Programming Foundations Algorithms.pdf",
+										"/D:/Test For Kazly/CertificateOfCompletion_Programming Foundations Data Structures.pdf"
+									]
+								},
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/D:/Test For Kazly/cv.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/florist/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"florist",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"ACCESS_TOKEN\", jsonData.accessToken);\r",
+									"postman.setEnvironmentVariable(\"REFRESH_TOKEN\", jsonData.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"otp\":\"408346\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/auth/customer/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"auth",
+								"customer",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{USER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "My Info",
+			"item": [
+				{
+					"name": "get My Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/florists/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"florists",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update My Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"about\":\"this is my about\",\r\n    \"hourCost\":\"20\",\r\n    \"section\":\"event\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/florists/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"florists",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "My Work",
+			"item": [
+				{
+					"name": "get My Work",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/florists/me/work",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"florists",
+								"me",
+								"work"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload Work Img",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/D:/Test For Kazly/1f42d0a734feb79af3a1e00ce0f7d989.jpg",
+										"/D:/Test For Kazly/1f42d0a734feb79af3a1e00ce0f7d989.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/florists/me/work",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"florists",
+								"me",
+								"work"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Work Img",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/florists/me/work/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"florists",
+								"me",
+								"work",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "664f625138abbf58578db17c"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Schedule",
+			"item": [
+				{
+					"name": "Create Schedule",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"day\":\"Sat\",\r\n    \"dates\":[\r\n        {\r\n            \"startHour\":\"11\",\r\n            \"endHour\":\"14\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{API_PREFIX}}/schedule",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{API_PREFIX}}",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
